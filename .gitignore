@@ -1,0 +1,22 @@
+# Manim 出力
+media/
+videos/
+images/
+Tex/
+texts/
+__pycache__/
+*.pyc
+
+# 仮想環境
+.venv/
+venv/
+env/
+
+# エディタ / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# pytest
+.pytest_cache/
