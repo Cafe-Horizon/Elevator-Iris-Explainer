@@ -2,4 +2,5 @@
 
 from . import geometry, theme  # noqa: F401
 
-__all__ = ["geometry", "theme"]
+__version__ = "1.0.0"
+__all__ = ["geometry", "theme", "__version__"]
