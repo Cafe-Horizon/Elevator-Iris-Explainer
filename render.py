@@ -68,71 +68,27 @@ def run_manim(scene_id, scene_info, quality, capture_output=True):
     except subprocess.CalledProcessError as e:
         return False, scene_id, scene_info["class"], (e.stdout or ""), (e.stderr or "")
 
-def combine_videos(tasks, quality, output_name="combined.mp4"):
-    quality_dir = QUALITY_MAP.get(quality, "480p15")
-    base_dir = os.path.join("media", "videos", "scene", quality_dir)
-    
-    if not os.path.exists(base_dir):
-        print(f"Warning: Directory '{base_dir}' does not exist. Skipping video combination.", file=sys.stderr)
-        return False
-
-    valid_files = []
-    for _, info in tasks:
-        file_path = os.path.join(base_dir, f"{info['class']}.mp4")
-        if os.path.isfile(file_path):
-            valid_files.append(f"{info['class']}.mp4")
-        else:
-            print(f"Warning: Expected scene file '{file_path}' not found for combination.", file=sys.stderr)
-
-    if not valid_files:
-        print("Error: No valid scene MP4 files found to combine.", file=sys.stderr)
-        return False
-
-    list_file_path = os.path.join(base_dir, "concat_list.txt")
-    output_file_path = os.path.join(base_dir, output_name)
-
-    try:
-        with open(list_file_path, "w", encoding="utf-8") as f:
-            for fname in valid_files:
-                f.write(f"file '{fname}'\n")
-
-        cmd = [
-            "ffmpeg", "-y",
-            "-f", "concat",
-            "-safe", "0",
-            "-i", list_file_path,
-            "-c", "copy",
-            output_file_path
-        ]
-        
-        print(f"==> [Combine] Concatenating {len(valid_files)} video(s) into {output_file_path}")
-        subprocess.run(cmd, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-        print(f"==> [Combine SUCCESS] Output combined video: {output_file_path}")
-        return True
-    except subprocess.CalledProcessError as e:
-        print(f"Error during video combination: {e.stderr}", file=sys.stderr)
-        return False
-    finally:
-        if os.path.exists(list_file_path):
-            os.remove(list_file_path)
-
 def main():
     parser = argparse.ArgumentParser(description="Render Manim scenes in parallel.")
     parser.add_argument("-q", "--quality", default="l", choices=["l", "m", "h", "k"],
                         help="Render quality: l(low), m(medium), h(high), k(4k)")
     parser.add_argument("-s", "--scene", nargs="*", default=[],
-                        help="Scene IDs to render (e.g. 04 or scene). If empty, renders all.")
+                        help="Scene IDs to render (e.g. 04, scene, or all). Default is 'scene' (full video).")
     parser.add_argument("-j", "--jobs", type=int, default=0,
                         help="Number of concurrent rendering processes. Default is CPU count.")
-    parser.add_argument("--no-combine", action="store_true",
-                        help="Disable automatic combination of rendered MP4 files into a single video.")
     
     args = parser.parse_args()
     
     setup_latex_path()
     
     # Identify target scenes
-    target_ids = args.scene if args.scene else sorted(SCENES.keys())
+    if not args.scene:
+        target_ids = ["scene"]
+    elif any(s.lower() == "all" for s in args.scene):
+        target_ids = sorted(SCENES.keys())
+    else:
+        target_ids = args.scene
+
     tasks = []
     for sid in target_ids:
         if sid in SCENES:
@@ -178,9 +134,6 @@ def main():
                 
     print("-" * 60)
     print(f"Done. Successfully rendered: {success_count}/{len(tasks)}")
-
-    if not args.no_combine and success_count > 0:
-        combine_videos(tasks, args.quality)
 
     if failed_tasks:
         print(f"Failed scenes: {', '.join(failed_tasks)}", file=sys.stderr)
