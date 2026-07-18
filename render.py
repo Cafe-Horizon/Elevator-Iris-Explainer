@@ -54,7 +54,7 @@ def main():
     parser.add_argument("-q", "--quality", default="l", choices=["l", "m", "h", "k"],
                         help="Render quality: l(low), m(medium), h(high), k(4k)")
     parser.add_argument("-s", "--scene", nargs="*", default=[],
-                        help="Scene IDs to render (e.g. 04 or 01 02). If empty, renders all.")
+                        help="Scene IDs to render (e.g. scene). If empty, renders all.")
     parser.add_argument("-j", "--jobs", type=int, default=0,
                         help="Number of concurrent rendering processes. Default is CPU count.")
     
