@@ -213,8 +213,8 @@ class RotateAboutPivot(Scene):
             x_length=7.0, y_length=7.0,
         ).move_to(UP * 0.55)  # 座標変換にだけ使う (画面には出さない)
 
-        title_big = Text("メカニカルアイリスの数学", font=theme.FONT_MAIN, color=theme.INK).scale(0.85)
-        title_sub = Text("エレベーターの蓋は、1つの数式で開く", font=theme.FONT_MAIN, color=theme.MUTED).scale(0.5)
+        title_big = Text("かふぇほらいずん！のエレベーターの開閉機構の仕組み", font=theme.FONT_MAIN, color=theme.INK).scale(0.85)
+        title_sub = Text("エレベーターの開閉機構は、1つの数式で開く", font=theme.FONT_MAIN, color=theme.MUTED).scale(0.5)
         title_grp = VGroup(title_big, title_sub).arrange(DOWN, buff=0.28).to_edge(DOWN, buff=0.55)
 
         first = mh.aperture_group(intro_ax, 0.0, ghost=False)
