@@ -1,16 +1,18 @@
 # Elevator-Iris-Explainer
 
-[LiveStage-Elevator](../LiveStage-Elevator) のエレベーターの開閉機構が、どういう行列計算で実装されているかを
+[LiveStage-Elevator](https://github.com/Cafe-Horizon/LiveStage-Elevator) のエレベーターの開閉機構が、どういう行列計算で実装されているかを
 Manim のアニメーションで解説するリポジトリ
 
-![overview](docs/overview.png)
+<https://youtu.be/c4NOMRSOP0g>
 
-開閉機構のベースオブジェクトは [IrisGen](../IrisGen)（Blender スクリプト）で生成される。
+<video src="https://github.com/user-attachments/assets/ae6c8ca9-8327-47a4-bcfe-6303ca7b94c2" width="50%" controls></video>
 
-開閉そのものは Unity の頂点シェーダー [MechanicalIris.shader](../LiveStage-Elevator/blob/main/Assets/Cafe-Horizon/World/LiveStage/Elevator/ElevatorCover/MechanicalIris/Shader/MechanicalIris.shader) が行列計算で行っている。
+開閉機構のベースオブジェクトは [IrisGen](https://github.com/Cafe-Horizon/IrisGen)（Blender スクリプト）で生成しています。
+
+開閉そのものは Unity の頂点シェーダー [MechanicalIris.shader](https://github.com/Cafe-Horizon/LiveStage-Elevator/blob/main/Assets/Cafe-Horizon/World/LiveStage/Elevator/ElevatorCover/MechanicalIris/Shader/MechanicalIris.shader) が行列計算で行っています。
 
 本リポジトリはその中でも核心となる「GPU での開閉回転機構」について
-数式とアニメーションで可視化する。
+数式とアニメーションで可視化しています。
 
 ## セットアップ
 
@@ -40,4 +42,4 @@ uv run ./render.ps1 -Quality h
 uv run manim -ql scenes/scene.py RotateAboutPivot
 ```
 
-出力は `media/videos/...` 以下に生成される。
+出力は `media/videos/...` に生成されます。
