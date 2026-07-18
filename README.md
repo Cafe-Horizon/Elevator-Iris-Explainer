@@ -1,15 +1,16 @@
 # Elevator-Iris-Explainer
 
-[LiveStage-Elevator](../LiveStage-Elevator) のエレベーターの開閉機構が、**どういう行列計算で実装されているか**を
-Manim のアニメーションで解説するリポジトリ。
+[LiveStage-Elevator](../LiveStage-Elevator) のエレベーターの開閉機構が、どういう行列計算で実装されているかを
+Manim のアニメーションで解説するリポジトリ
 
-開閉機構のベースオブジェクトは [IrisGen](../IrisGen)（Blender スクリプト）で生成され、
+![overview](docs/overview.png)
+
+開閉機構のベースオブジェクトは [IrisGen](../IrisGen)（Blender スクリプト）で生成される。
+
 開閉そのものは Unity の頂点シェーダー [MechanicalIris.shader](../LiveStage-Elevator/blob/main/Assets/Cafe-Horizon/World/LiveStage/Elevator/ElevatorCover/MechanicalIris/Shader/MechanicalIris.shader) が行列計算で行っている。
 
 本リポジトリはその中でも核心となる「GPU での開閉回転機構」について
 数式とアニメーションで可視化する。
-
-![overview](docs/overview.png)
 
 ## セットアップ
 
