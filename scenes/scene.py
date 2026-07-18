@@ -93,6 +93,8 @@ def fmt1(v: float) -> str:
 class RotateAboutPivot(Scene):
     """メカニカルアイリスの開閉行列を 9 アクトで解説する単一シーン。"""
 
+    target_act = None
+
     def construct(self):
         self._narr = None   # 画面下部のナレーション (常に 1 つ)
         self._narr_min_until = 0.0  # 現ナレーションを保持すべきシーン時刻 (読了保証)
@@ -107,14 +109,29 @@ class RotateAboutPivot(Scene):
         self.ax = self.make_base_plane()
         self.panel_left_x = -0.2  # 右側パネル (コード・数式) の基準左端
 
+        def next_act_section(act_num):
+            if self.target_act is not None:
+                self.next_section(skip_animations=(act_num != self.target_act))
+            else:
+                self.next_section()
+
+        next_act_section(1)
         self.act1_hook()
+        next_act_section(2)
         self.act2_meet_the_blade()
+        next_act_section(3)
         self.act3_naive_fail()
+        next_act_section(4)
         self.act4_three_steps()
+        next_act_section(5)
         self.act5_matrix_detail()
+        next_act_section(6)
         self.act6_compose()
+        next_act_section(7)
         self.act7_vertex_color()
+        next_act_section(8)
         self.act8_finale()
+        next_act_section(9)
         self.act9_summary()
 
     # ------------------------------------------------------------------
@@ -213,8 +230,8 @@ class RotateAboutPivot(Scene):
             x_length=7.0, y_length=7.0,
         ).move_to(UP * 0.55)  # 座標変換にだけ使う (画面には出さない)
 
-        title_big = Text("かふぇほらいずん！のエレベーターの開閉機構の仕組み", font=theme.FONT_MAIN, color=theme.INK).scale(0.85)
-        title_sub = Text("エレベーターの開閉機構は、1つの数式で開く", font=theme.FONT_MAIN, color=theme.MUTED).scale(0.5)
+        title_big = Text("メカニカルアイリスの仕組み", font=theme.FONT_MAIN, color=theme.INK).scale(0.85)
+        title_sub = Text("かふぇほらいずん！のエレベーターの開閉機構は、1つの数式で開く", font=theme.FONT_MAIN, color=theme.MUTED).scale(0.5)
         title_grp = VGroup(title_big, title_sub).arrange(DOWN, buff=0.28).to_edge(DOWN, buff=0.55)
 
         first = mh.aperture_group(intro_ax, 0.0, ghost=False)
@@ -885,3 +902,39 @@ class RotateAboutPivot(Scene):
         self.head_out()
         self.play(FadeOut(rows), FadeOut(fin), FadeOut(self.title))
         self.wait(0.5)
+
+
+class Act1(RotateAboutPivot):
+    target_act = 1
+
+
+class Act2(RotateAboutPivot):
+    target_act = 2
+
+
+class Act3(RotateAboutPivot):
+    target_act = 3
+
+
+class Act4(RotateAboutPivot):
+    target_act = 4
+
+
+class Act5(RotateAboutPivot):
+    target_act = 5
+
+
+class Act6(RotateAboutPivot):
+    target_act = 6
+
+
+class Act7(RotateAboutPivot):
+    target_act = 7
+
+
+class Act8(RotateAboutPivot):
+    target_act = 8
+
+
+class Act9(RotateAboutPivot):
+    target_act = 9

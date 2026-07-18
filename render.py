@@ -11,6 +11,15 @@ import multiprocessing
 
 SCENES = {
     "scene": {"file": "scenes/scene.py", "class": "RotateAboutPivot"},
+    "01": {"file": "scenes/scene.py", "class": "Act1"},
+    "02": {"file": "scenes/scene.py", "class": "Act2"},
+    "03": {"file": "scenes/scene.py", "class": "Act3"},
+    "04": {"file": "scenes/scene.py", "class": "Act4"},
+    "05": {"file": "scenes/scene.py", "class": "Act5"},
+    "06": {"file": "scenes/scene.py", "class": "Act6"},
+    "07": {"file": "scenes/scene.py", "class": "Act7"},
+    "08": {"file": "scenes/scene.py", "class": "Act8"},
+    "09": {"file": "scenes/scene.py", "class": "Act9"},
 }
 
 def setup_latex_path():
@@ -54,7 +63,7 @@ def main():
     parser.add_argument("-q", "--quality", default="l", choices=["l", "m", "h", "k"],
                         help="Render quality: l(low), m(medium), h(high), k(4k)")
     parser.add_argument("-s", "--scene", nargs="*", default=[],
-                        help="Scene IDs to render (e.g. scene). If empty, renders all.")
+                        help="Scene IDs to render (e.g. 04 or scene). If empty, renders all.")
     parser.add_argument("-j", "--jobs", type=int, default=0,
                         help="Number of concurrent rendering processes. Default is CPU count.")
     
